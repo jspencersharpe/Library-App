@@ -5,11 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Library</title>
-  <link href="bower_components/bootstrap/dist/bootstrap.min.css"</link>
-  <link rel="stylesheet" href="main.css"></link>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <div class="container" ng-controller="LibraryController as libCtrl">
+  <div class="container" class="container-fluid" .col-xs-5 ng-controller="LibraryController as libCtrl">
    <h1>My Library</h1>
     <form name="myForm" ng-submit="myForm.$valid && libCtrl.addNewBook()" novalidate>
       <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.title}">
@@ -34,7 +34,7 @@
       </div>
       <input id="add-book" type="submit" value="Add Book" ng-disabled="myForm.$invalid">
     </form>
-    <table>
+    <table class="table">
       <thead>
         <tr>
           <th>Title</th>
