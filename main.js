@@ -23,8 +23,8 @@
         });
     };
 
-    vm.removeToDo = function(bookId){
-      var url = 'https://jsslibrary.firebaseio.com/' + bookId + '.json';
+    vm.removeBook = function(bookId){
+      var url = 'https://jsslibrary.firebaseio.com/list' + bookId + '.json';
       $http.delete(url)
         .success(function(){
           delete vm.books[bookId];
@@ -50,13 +50,3 @@
     });
 }());
 
-//addNew Task = addNewBook
-//newTask = newBook
-//todoCtrl = libCtrl
-//name = title
-//taskId = bookId
-//task = book
-//books = tasks
-//priorityOptions = readOptions
-//removeToDo = removeBook
-//_freshTask = _freshBook
