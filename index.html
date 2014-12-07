@@ -48,7 +48,7 @@
         <tr ng-repeat"(bookId, book) in libCtrl.books">
           <td>{{book.title}}</td>
           <td>{{book.author}}</td>
-          <td>{{Genre}}</td>
+          <td>{{book.genre}}</td>
           <td>{{book.read}}</td>
           <td><button ng-click="libCtrl.removeBook(bookId)">DELETE</button></td>
         </tr>
