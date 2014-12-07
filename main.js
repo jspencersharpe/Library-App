@@ -1,5 +1,5 @@
 ;(function(){
-  "use strict";
+  'use strict';
 
   angular.module('libApp', [])
     .controller('LibraryController', function($http){
@@ -11,7 +11,8 @@
       })
       .error(function(err){
         console.log(err);
-      })
+      });
+      
     vm.addNewBook = function(){
       $http.post('https://jsslibrary.firebaseio.com/list.json', vm.newBook)
         .success(function(data){
@@ -24,7 +25,7 @@
     };
 
     vm.removeBook = function(bookId){
-      var url = 'https://jsslibrary.firebaseio.com/list' + bookId + '.json';
+      var url = 'https://jsslibrary.firebaseio.com/list/' + bookId + '.json';
       $http.delete(url)
         .success(function(){
           delete vm.books[bookId];
@@ -47,6 +48,8 @@
           read: 'none'
         }
       }
+
     });
+
 }());
 
