@@ -1,20 +1,20 @@
-    <form name="myForm" ng-submit="myForm.$valid && libCtrl.addNewBook()" novalidate>
-      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.title}">
+    <form name="myForm" ng-submit="myForm.$valid && library.addNewBook()" novalidate>
+      <div class="form-group" ng-class="{'has-error':!library.newBook.title}">
         <label class="control-label">Title</label>
-        <input class="form-control" type="text" ng-model="libCtrl.newBook.title" required>
+        <input class="form-control" type="text" ng-model="library.newBook.title" required>
       </div>
-      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.author}">
+      <div class="form-group" ng-class="{'has-error':!library.newBook.author}">
         <label class="control-label">Author</label>
-        <input class="form-control" type="text" ng-model="libCtrl.newBook.author" required>
+        <input class="form-control" type="text" ng-model="library.newBook.author" required>
       </div>
-      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.genre}">
+      <div class="form-group" ng-class="{'has-error':!library.newBook.genre}">
         <label class="control-label">Genre</label>
-        <input class="form-control" type="text" ng-model="libCtrl.newBook.genre" required>
+        <input class="form-control" type="text" ng-model="library.newBook.genre" required>
       </div>
-      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.read}">
+      <div class="form-group" ng-class="{'has-error':!library.newBook.read}">
         <label class="control-label">Read</label>
-        <select ng-model="libCtrl.newBook.read">
-          <option value="{{val}}" ng-repeat="(val, text) in libCtrl.readOptions">
+        <select ng-model="library.newBook.read">
+          <option value="{{val}}" ng-repeat="(val, text) in library.readOptions">
           {{text}}
           </option>
         </select>

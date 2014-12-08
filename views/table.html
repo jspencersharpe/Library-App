@@ -9,12 +9,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="(bookId, book) in libCtrl.books">
+        <tr ng-repeat="(bookId, book) in library.books">
           <td>{{book.title}}</td>
           <td>{{book.author}}</td>
           <td>{{book.genre}}</td>
           <td>{{book.read}}</td>
-          <td><button ng-click="libCtrl.removeBook(bookId)">DELETE</button></td>
+          <td><button ng-click="library.removeBook(bookId)">DELETE</button></td>
         </tr>
       </tbody>
     </table>

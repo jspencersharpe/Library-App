@@ -1,7 +1,21 @@
 ;(function(){
   'use strict';
 
-  angular.module('libApp', [])
+  angular.module('libApp', ['ngRoute'])
+    .config(function($routeProvider){
+      $routeProvider
+      .when('/', {
+        templateUrl: 'views/table.html',
+        controller: 'LibraryController',
+        controllerAs: 'library'
+      })
+      .when('/new', {
+        templateUrl: 'views/form.html',
+        controller: 'LibraryController',
+        controllerAs: 'library'
+      })
+
+    })
     .controller('LibraryController', function($http){
       var vm = this;
     
