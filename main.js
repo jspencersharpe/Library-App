@@ -14,9 +14,26 @@
         controller: 'LibraryController',
         controllerAs: 'library'
       })
-
+      .when('/:id', {
+        templateUrl: 'views/show.html',
+        controller: 'ShowController',
+        controllerAs: 'show'
+      })
+      .otherwise({redirectTo: '/'});
     })
-    .controller('LibraryController', function($http){
+
+    .controller('ShowController', function($http, $routeParams){
+      var vm = this;
+      var id = $routeParams.id;
+      $http.get('https://jsslibrary.firebaseio.com/books/' + id + '.json')
+       .success(function(data){
+        vm.books = data;
+      })
+      .error(function(err){
+        console.log(err);
+      });
+      })
+     .controller('LibraryController', function($http){
       var vm = this;
     
       $http.get('https://jsslibrary.firebaseio.com/books.json')
