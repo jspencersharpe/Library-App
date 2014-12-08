@@ -11,54 +11,14 @@
 <body>
   <div class="container" class="container-fluid" .col-xs-5 ng-controller="LibraryController as libCtrl">
    <h1>My Library</h1>
-    <form name="myForm" ng-submit="myForm.$valid && libCtrl.addNewBook()" novalidate>
-      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.title}">
-        <label class="control-label">Title</label>
-        <input class="form-control" type="text" ng-model="libCtrl.newBook.title" required>
-      </div>
-      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.author}">
-        <label class="control-label">Author</label>
-        <input class="form-control" type="text" ng-model="libCtrl.newBook.author" required>
-      </div>
-      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.genre}">
-        <label class="control-label">Genre</label>
-        <input class="form-control" type="text" ng-model="libCtrl.newBook.genre" required>
-      </div>
-      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.read}">
-        <label class="control-label">Read</label>
-        <select ng-model="libCtrl.newBook.read">
-          <option value="{{val}}" ng-repeat="(val, text) in libCtrl.readOptions">
-          {{text}}
-          </option>
-        </select>
-      </div>
-      <input id="add-book" type="submit" value="Add Book" ng-disabled="myForm.$invalid">
-    </form>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Genre</th>
-          <th id="read">Read?</th>
-          <th>Remove Book</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="(bookId, book) in libCtrl.books">
-          <td>{{book.title}}</td>
-          <td>{{book.author}}</td>
-          <td>{{book.genre}}</td>
-          <td>{{book.read}}</td>
-          <td><button ng-click="libCtrl.removeBook(bookId)">DELETE</button></td>
-        </tr>
-      </tbody>
-    </table>
+   <a class="btn btn-primary" href="/#/">All ToDos</a>
+   <a class="btn btn-primary" href="/#/new">New To Do</a>
+   <div ng-view></div>
   </div>
-
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

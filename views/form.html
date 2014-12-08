@@ -1,0 +1,24 @@
+    <form name="myForm" ng-submit="myForm.$valid && libCtrl.addNewBook()" novalidate>
+      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.title}">
+        <label class="control-label">Title</label>
+        <input class="form-control" type="text" ng-model="libCtrl.newBook.title" required>
+      </div>
+      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.author}">
+        <label class="control-label">Author</label>
+        <input class="form-control" type="text" ng-model="libCtrl.newBook.author" required>
+      </div>
+      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.genre}">
+        <label class="control-label">Genre</label>
+        <input class="form-control" type="text" ng-model="libCtrl.newBook.genre" required>
+      </div>
+      <div class="form-group" ng-class="{'has-error':!libCtrl.newBook.read}">
+        <label class="control-label">Read</label>
+        <select ng-model="libCtrl.newBook.read">
+          <option value="{{val}}" ng-repeat="(val, text) in libCtrl.readOptions">
+          {{text}}
+          </option>
+        </select>
+      </div>
+      <input id="add-book" type="submit" value="Add Book" ng-disabled="myForm.$invalid">
+    </form>
+
