@@ -14,7 +14,11 @@
           <td>{{book.author}}</td>
           <td>{{book.genre}}</td>
           <td>{{book.read}}</td>
-          <td><button ng-click="library.removeBook(bookId)">DELETE</button></td>
+          <td>
+            <a class="btn btn-primary" href="/#/{{bookId}}">Show</a>
+            <a class="btn btn-primary" href="/#/{{bookId}}/edit">Edit</a>
+            <button ng-click="library.removeBook(bookId)">DELETE</button>
+          </td>
         </tr>
       </tbody>
     </table>
