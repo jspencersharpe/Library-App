@@ -26,80 +26,116 @@
       })
       .otherwise({redirectTo: '/'});
     })
-    .controller('ShowController', function($http, $routeParams){
-      var vm = this;
-      var id = $routeParams.id;
-      $http.get('https://jsslibrary.firebaseio.com/books/' + id + '.json')
-       .success(function(data){
-        vm.book = data;
-      })
-      .error(function(err){
-        console.log(err);
-      });
-    })
-    .controller('EditController', function($http, $routeParams, $location){
-      var vm = this;
-      var id = $routeParams.id;
-      var url = 'https://jsslibrary.firebaseio.com/books/' + id + '.json'
+   .factory('libraryFactory', function($http, $location){
+    
+     function getLibrary(id, cb){
+       var url = 'https://jsslibrary.firebaseio.com/books/' + id + '.json';
+     
       $http.get(url)
         .success(function(data){
-          vm.newBook = data;
+          cb(data);
         })
         .error(function(err){
           console.log(err);
         });
-        
-        vm.addNewBook = function(){
-          $http.put(url, vm.newBook)
-            .success(function(data){
-               $location.path('/')          
-            })
-            .error(function(err){
-            console.log(err);
-            });
+     }
+
+     function editBook(id, library){
+        var url = 'https://jsslibrary.firebaseio.com/books/' + id + '.json';
+        $http.put(url, library)
+          .success(function(data){
+            $location.path('/')
+          })
+          .error(function(err){
+            console.log(err)
+          });
         };
 
+      function getAllBooks(cb){
+        $http.get('https://jsslibrary.firebaseio.com/books.json')
+        .success(function(data){
+          cb(data);
+        })
+        .error(function(err){
+          console.log(err);
+        });
+      }
 
-        vm.readOptions = {
+      function createBook(book, cb){
+        $http.post('https://jsslibrary.firebaseio.com/books.json', book)
+          .success(function(data){
+            cb(data)
+          })
+          .error(function(err){
+            console.log(err);
+          });
+       }
+
+      function deleteBook(bookId, cb){
+        var url = 'https://jsslibrary.firebaseio.com/books/' + bookId + '.json';
+        $http.delete(url)
+          .success(function(){
+            cb()
+          })
+          .error(function(err){
+            console.log(err);
+          });
+       }
+
+      return {
+        getLibrary: getLibrary,
+        editBook: editBook,
+        getAllBooks: getAllBooks,
+        createBook: createBook,
+        deleteBook: deleteBook
+      };
+   })
+    .controller('ShowController', function($routeParams, libraryFactory){
+      var vm = this;
+      var id = $routeParams.id;
+      libraryFactory.getLibrary(id, function(data){
+        vm.book = data;
+      });
+    })
+    .controller('EditController', function($routeParams, libraryFactory){
+      var vm = this;
+      var id = $routeParams.id;
+
+      libraryFactory.getLibrary(id, function(data){
+        vm.newBook = data;
+      });
+
+      vm.addNewBook = function(){
+         libraryFactory.editBook(id, vm.newBook)
+      };
+
+      vm.readOptions = {
            all: 'All',
            some: 'Some',
            none: 'None'
         };
 
      })
-    .controller('LibraryController', function($http){
+    .controller('LibraryController', function($http, libraryFactory){
         var vm = this;
+
+     libraryFactory.getAllBooks(function(data){
+      vm.books = data;
+     });
     
-      $http.get('https://jsslibrary.firebaseio.com/books.json')
-       .success(function(data){
-        vm.books = data;
-      })
-      .error(function(err){
-        console.log(err);
-      });
-      
      vm.addNewBook = function(){
-      $http.post('https://jsslibrary.firebaseio.com/books.json', vm.newBook)
-        .success(function(data){
-           vm.books[data.name] = vm.newBook;
+        libraryFactory.createBook(vm.newBook, function(data){
+          vm.books[data.name] = vm.newBook;
           vm.newBook = _freshBook();
-        })
-        .error(function(err){
-          console.log(err);
         });
      };
-
+       
      vm.removeBook = function(bookId){
-      var url = 'https://jsslibrary.firebaseio.com/books/' + bookId + '.json';
-      $http.delete(url)
-        .success(function(){
-          delete vm.books[bookId];
-        })
-        .error(function(err){
-          console.log(err);
-        });
+       libraryFactory.deleteBook(bookId, function(){
+          delete vm.books[bookId]; 
+       })
      };
-
+   
       vm.newBook = _freshBook();
 
       vm.readOptions = {
